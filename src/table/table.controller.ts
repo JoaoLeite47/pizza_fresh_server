@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { get } from 'http';
 import { CreateTableDto } from './dto/create-table.dto';
 import { Table } from './entities/table.entity';
 import { TableService } from './table.services';
