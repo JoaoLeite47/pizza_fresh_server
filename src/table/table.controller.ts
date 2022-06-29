@@ -6,14 +6,14 @@ import { TableService } from './table.services';
 @ApiTags('table') //swagger tag
 @Controller('table')
 export class TableController {
-  constructor(private tableService: TableService) {}
+  constructor(private readonly tableService: TableService) {}
   @Get()
   findAll() {
     return this.tableService.findAll();
   }
 
   @Post()
-  create(@Body() createTableDto: CreateTableDto) {
-    return this.tableService.create(createTableDto);
+  create(@Body() dto: CreateTableDto) {
+    return this.tableService.create(dto);
   }
 }
