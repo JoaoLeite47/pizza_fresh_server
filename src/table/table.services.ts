@@ -26,4 +26,8 @@ export class TableService {
     const data: Partial<Table> = { ...dto };
     return this.prisma.table.update({ where: { id }, data });
   }
+
+  async delete(id: string) {
+    await this.prisma.table.delete({ where: { id } });
+  }
 }
