@@ -22,7 +22,7 @@ model Table {
 
 model Product {
   id          String @id @default(uuid())
-  title       String @unique
+  name       String @unique
   description String
   price       Float
   image       String
