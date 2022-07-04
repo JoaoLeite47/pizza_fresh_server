@@ -1,9 +1,8 @@
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>![elgeladon](https://user-images.githubusercontent.com/100146681/177060941-e5ade9f0-60bd-41a4-ab19-56048e8418b9.png)
-![api_elgeladon](https://user-images.githubusercontent.com/100146681/177060946-69de37d4-8492-4dee-84c1-1f4e6d9fc204.png)
+  
+![pizzafresh](https://user-images.githubusercontent.com/100146681/177185523-f5219eda-7e0b-45e4-8092-885bdcb7bb60.png)
 
-![api_pizzafresh](https://user-images.githubusercontent.com/100146681/177060940-e0f67b6a-5376-4f71-8a18-979ec02bbdd2.png)
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
