@@ -12,10 +12,23 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
+  private userSelect = {
+    id: true,
+    nickname: true,
+    name: true,
+    password: false,
+    image: true,
+    createdAt: true,
+    updatedAt: true,
+  };
+
   constructor(private readonly prisma: PrismaService) {}
 
   async findById(id: string): Promise<User> {
-    const record = await this.prisma.user.findUnique({ where: { id } });
+    const record = await this.prisma.user.findUnique({
+      where: { id },
+      select: this.userSelect, // turn off password field in response body (not in DB)
+    });
     if (!record) {
       throw new NotFoundException(` ${id} not found!`);
     }
@@ -46,11 +59,13 @@ export class UserService {
       password: await bcrypt.hash(dto.password, 10),
     };
 
-    return this.prisma.user.create({ data }).catch(this.handleError);
+    return this.prisma.user
+      .create({ data, select: this.userSelect })
+      .catch(this.handleError);
   }
 
   findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({ select: this.userSelect });
   }
 
   async findOne(id: string): Promise<User> {
@@ -75,7 +90,7 @@ export class UserService {
     }
 
     return this.prisma.user
-      .update({ where: { id }, data })
+      .update({ where: { id }, data, select: this.userSelect })
       .catch(this.handleError);
   }
 
