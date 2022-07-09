@@ -23,12 +23,18 @@ export class UserService {
   handleError(error: Error): undefined {
     const errorLines = error.message?.split('\n');
     const lastErrorLines = errorLines[errorLines.length - 1]?.trim(); //pego a mensagem de err da ultima linha
+
+    if (!lastErrorLines) {
+      console.error(error);
+    }
     throw new UnprocessableEntityException(
-      lastErrorLines || 'Algum erro ocorreu ao criar uma mesa!',
+      lastErrorLines || 'Algum erro ocorreu na operação!',
     );
   } //throw para erros de tipos na criação de um novo objeto
 
   async create(dto: CreateUserDto): Promise<User> {
+    delete dto.ConfirmPassword;
+
     const data: User = { ...dto };
 
     return this.prisma.user.create({ data }).catch(this.handleError);
@@ -44,6 +50,7 @@ export class UserService {
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
     await this.findById(id);
+    delete dto.ConfirmPassword;
     const data: Partial<User> = { ...dto };
     return this.prisma.user
       .update({ where: { id }, data })

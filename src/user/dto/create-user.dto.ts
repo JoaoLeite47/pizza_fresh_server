@@ -17,16 +17,19 @@ export class CreateUserDto {
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'Senha muito fraca',
   })
-  @ApiProperty({ description: 'Senha do usuário', example: 'new_password' })
+  @ApiProperty({ description: 'Senha do usuário', example: 'N3w_password' })
   password: string;
 
   @ApiProperty({
     description: 'As senhas devem ser identicas!',
-    example: 'new_password',
+    example: 'N3w_password',
   })
   ConfirmPassword: string;
 
   @IsUrl()
-  @ApiProperty({ description: 'URL da imagem do usuário', example: 'http://' })
+  @ApiProperty({
+    description: 'URL da imagem do usuário',
+    example: 'https://miro.medium.com/max/640/0*i1v1In2Tn4Stnwnl.jpg',
+  })
   image: string;
 }
