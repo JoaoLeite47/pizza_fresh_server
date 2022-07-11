@@ -1,12 +1,55 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { handleError } from './utils/handle-error.utils';
 
 @Injectable()
 export class OrderService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+
+  async create(createOrderDto: CreateOrderDto) {
+    const data: Prisma.OrderCreateInput = {
+      user: {
+        connect: {
+          id: createOrderDto.userId,
+        },
+      },
+      table: {
+        connect: {
+          number: createOrderDto.tableNumber,
+        },
+      },
+      products: {
+        connect: createOrderDto.products.map((productId) => ({
+          id: productId,
+        })),
+      },
+    };
+
+    return this.prisma.order
+      .create({
+        data,
+        select: {
+          id: true,
+          table: {
+            select: {
+              number: true,
+            },
+          },
+          user: {
+            select: {
+              name: true,
+            },
+          },
+          products: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      })
+      .catch(handleError);
   }
 
   findAll() {
