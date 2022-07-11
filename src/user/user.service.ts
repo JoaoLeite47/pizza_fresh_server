@@ -2,13 +2,13 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  UnprocessableEntityException,
 } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import { handleError } from 'src/order/utils/handle-error.utils';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -35,18 +35,6 @@ export class UserService {
     return record;
   } //method for err tratament
 
-  handleError(error: Error): undefined {
-    const errorLines = error.message?.split('\n');
-    const lastErrorLines = errorLines[errorLines.length - 1]?.trim(); //pego a mensagem de err da ultima linha
-
-    if (!lastErrorLines) {
-      console.error(error);
-    }
-    throw new UnprocessableEntityException(
-      lastErrorLines || 'Algum erro ocorreu na operação!',
-    );
-  } //throw para erros de tipos na criação de um novo objeto
-
   async create(dto: CreateUserDto): Promise<User> {
     if (dto.password !== dto.ConfirmPassword) {
       throw new BadRequestException('As senhas não conferem!');
@@ -61,7 +49,7 @@ export class UserService {
 
     return this.prisma.user
       .create({ data, select: this.userSelect })
-      .catch(this.handleError);
+      .catch(handleError);
   }
 
   findAll(): Promise<User[]> {
@@ -91,7 +79,7 @@ export class UserService {
 
     return this.prisma.user
       .update({ where: { id }, data, select: this.userSelect })
-      .catch(this.handleError);
+      .catch(handleError);
   }
 
   async delete(id: string) {
