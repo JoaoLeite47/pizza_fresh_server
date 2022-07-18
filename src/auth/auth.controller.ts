@@ -34,6 +34,6 @@ export class AuthController {
   @ApiOperation({ summary: 'Retorna o usuário autenticado' })
   @ApiBearerAuth()
   profile(@LoggedUser() user: User) {
-    return { message: 'Autenticação successfull' };
+    return user;
   }
 }
