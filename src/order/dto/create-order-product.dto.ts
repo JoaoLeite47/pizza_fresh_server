@@ -5,7 +5,7 @@ export class CreateOrderProductDto {
   @IsUUID()
   @ApiProperty({
     description: 'Id do produto',
-    example: '57a90b56-680d-4e43-b6c1-f5b4fbdbe00f',
+    example: '6c0b0c58-7064-4095-bac9-16700cc40757',
   })
   productId: string;
 
