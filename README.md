@@ -1,7 +1,9 @@
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
   
-![pizzafresh](https://user-images.githubusercontent.com/100146681/177185523-f5219eda-7e0b-45e4-8092-885bdcb7bb60.png)
+![Swagger UI_page-0001](https://user-images.githubusercontent.com/100146681/179601827-614fd289-f670-4b65-95cc-1650d6088958.jpg)
+
+
 
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
