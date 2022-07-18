@@ -1,9 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderService } from './order.service';
 
 @ApiTags('order')
+@UseGuards(AuthGuard()) // necessario o token de autenticação para acessar o endpoint
+@ApiBearerAuth() // cadeado de autenticação
 @Controller('order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}

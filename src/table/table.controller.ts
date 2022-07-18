@@ -8,14 +8,18 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateTableDto } from './dto/create-table.dto';
 import { UpdateTableDto } from './dto/update-table.dto';
 import { Table } from './entities/table.entity';
 import { TableService } from './table.services';
 
 @ApiTags('table') //swagger tag
+@UseGuards(AuthGuard()) // necessario o token de autenticação para acessar o endpoint
+@ApiBearerAuth() // cadeado de autenticação
 @Controller('table')
 export class TableController {
   constructor(private readonly tableService: TableService) {}
